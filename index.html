@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Le Fang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@400;500;600&display=swap">
+<style>
+/* Layout: a quiet identity column on the left (sticky on desktop), the record on the right; stacks to one column on phones. */
+:root {
+  --paper: #f6f7f5;
+  --panel: #eceeea;
+  --ink: #1c2327;
+  --muted: #5a656b;
+  --rule: #d6dad5;
+  --accent: #1f5f6b;
+  --accent-soft: #dcebec;
+  --award: #8a5a12;
+  --award-soft: #f3e7d2;
+  --display: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --body: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --mono: var(--body);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121719; --panel: #1a2124; --ink: #e4e8e6; --muted: #9aa5a9; --rule: #2c3538;
+    --accent: #7cc0c9; --accent-soft: #1d3a3f; --award: #e2b46a; --award-soft: #3a2e1a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121719; --panel: #1a2124; --ink: #e4e8e6; --muted: #9aa5a9; --rule: #2c3538;
+  --accent: #7cc0c9; --accent-soft: #1d3a3f; --award: #e2b46a; --award-soft: #3a2e1a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--body); font-size: 16px; line-height: 1.6;
+  padding-inline: 20px; padding-block: 48px 64px;
+}
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+.page {
+  max-width: 1040px; margin-inline: auto;
+  display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 64px; align-items: start;
+}
+
+/* identity column */
+.id { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 96px); display: grid; gap: 22px; }
+.id h1 {
+  font-family: var(--display); font-weight: 500; font-size: 2.6rem; line-height: 1.05;
+  letter-spacing: -0.01em; margin: 0; text-wrap: balance;
+}
+.id h1 .cn { display: block; font-size: 1.1rem; color: var(--muted); font-weight: 400; letter-spacing: 0.08em; margin-top: 8px; }
+.role { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.5; }
+.role strong { color: var(--ink); font-weight: 600; }
+.contact { display: grid; gap: 10px; font-size: 0.92rem; }
+.email { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.email code { font-family: var(--body); font-size: 0.95rem; user-select: all; overflow-wrap: anywhere; }
+.copy {
+  font: 500 0.8rem var(--body); letter-spacing: 0.02em;
+  background: transparent; color: var(--accent); border: 1px solid var(--rule);
+  padding: 3px 8px; border-radius: 4px; cursor: pointer;
+}
+.copy:hover { border-color: var(--accent); }
+.links { display: flex; flex-wrap: wrap; gap: 8px; }
+.links a {
+  font: 500 0.88rem var(--body); text-decoration: none; letter-spacing: 0;
+  border: 1px solid var(--rule); padding: 5px 9px; border-radius: 4px; color: var(--ink);
+}
+.links a:hover { border-color: var(--accent); color: var(--accent); }
+.links a.primary { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+.links a.primary:hover { color: var(--paper); opacity: 0.9; }
+.status {
+  font-size: 0.88rem; line-height: 1.5; background: var(--accent-soft); color: var(--ink);
+  padding: 12px 14px; border-radius: 6px; margin: 0;
+}
+
+/* record column */
+main { display: grid; gap: 52px; min-width: 0; }
+section { display: grid; gap: 18px; min-width: 0; }
+h2 {
+  font: 600 0.8rem var(--body); text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--muted); margin: 0; padding-bottom: 10px; border-bottom: 1px solid var(--rule);
+}
+.lede { margin: 0; max-width: 65ch; }
+p { margin: 0; max-width: 65ch; }
+.prose { display: grid; gap: 14px; }
+
+.threads { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.thread { display: grid; gap: 6px; align-content: start; }
+.thread h3 { font-family: var(--display); font-weight: 500; font-size: 1.08rem; line-height: 1.3; margin: 0; }
+.thread p { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+
+.news { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.news li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 14px; font-size: 0.95rem; }
+.when { font: 400 0.9rem var(--body); color: var(--muted); padding-top: 3px; font-variant-numeric: tabular-nums; }
+
+.pubgroup { display: grid; gap: 6px; }
+.pubgroup h3 { font: 600 0.9rem var(--body); margin: 8px 0 4px; color: var(--ink); }
+.pubs { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.pub { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr); gap: 14px; }
+.pub .yr { font: 400 0.9rem var(--body); color: var(--muted); padding-top: 4px; font-variant-numeric: tabular-nums; }
+.pub .t { font-family: var(--display); font-size: 1.1rem; line-height: 1.35; font-weight: 500; }
+.pub .a { font-size: 0.88rem; color: var(--muted); margin-top: 3px; }
+.pub .a b { color: var(--ink); font-weight: 600; }
+.pub .v { font-size: 0.88rem; margin-top: 2px; }
+.pub .v i { font-style: italic; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
+.tags a, .tag {
+  font: 500 0.8rem var(--body); letter-spacing: 0.01em; text-decoration: none;
+  padding: 2px 7px; border-radius: 3px; border: 1px solid var(--rule); color: var(--muted);
+}
+.tags a:hover { color: var(--accent); border-color: var(--accent); }
+.tag.award { color: var(--award); background: var(--award-soft); border-color: transparent; }
+.tag.status { color: var(--accent); background: var(--accent-soft); border-color: transparent; }
+
+.rows { display: grid; gap: 14px; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; font-size: 0.95rem; }
+.row .what { font-weight: 600; }
+.row .where { color: var(--muted); grid-column: 1; font-size: 0.9rem; }
+.row .dates { font: 400 0.9rem var(--body); color: var(--muted); grid-column: 2; grid-row: 1; padding-top: 3px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+footer { font: 400 0.85rem var(--body); color: var(--muted); }
+
+@media (max-width: 820px) {
+  body { padding-block: 32px 48px; }
+  .page { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .id { position: static; }
+  .threads { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 480px) {
+  .news li, .pub { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .row { grid-template-columns: minmax(0, 1fr); }
+  .row .dates { grid-column: 1; grid-row: auto; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  a, .copy, .links a { transition: color .15s, border-color .15s, opacity .15s; }
+  .menu a::after { transition: transform .2s ease; }
+}
+
+/* top menu */
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  margin-inline: -20px; padding-inline: 20px; margin-block: -48px 40px;
+}
+.topbar-inner {
+  max-width: 1040px; margin-inline: auto; height: 56px;
+  display: flex; align-items: center; justify-content: flex-end; gap: 24px;
+}
+.brand { font-family: var(--display); font-weight: 500; font-size: 1.15rem; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.menu { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.menu::-webkit-scrollbar { display: none; }
+.menu { align-self: stretch; }
+.menu a {
+  position: relative; display: flex; align-items: center;
+  font: 500 0.95rem var(--body); letter-spacing: 0;
+  color: var(--muted); text-decoration: none; padding: 0 12px; white-space: nowrap;
+}
+.menu a::after {
+  content: ""; position: absolute; left: 12px; right: 12px; bottom: -1px; height: 2px;
+  background: var(--accent); transform: scaleX(0); transform-origin: left;
+}
+.menu a:hover { color: var(--ink); }
+.menu a[aria-current="true"] { color: var(--accent); }
+.menu a[aria-current="true"]::after { transform: scaleX(1); }
+.menu a:focus-visible { outline-offset: -6px; }
+
+section { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 72px); }
+@media (max-width: 820px) {
+  .topbar { margin-block: -32px 32px; }
+  .brand { display: none; }
+  .topbar-inner { justify-content: flex-start; }
+}
+
+
+.prose strong { font-weight: 600; color: var(--ink); }
+
+.refs { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.ref { padding-left: 2em; text-indent: -2em; font-size: 0.95rem; line-height: 1.55; max-width: 72ch; overflow-wrap: anywhere; }
+.ref b { font-weight: 600; }
+.ref .tags { display: inline-flex; gap: 6px; margin: 0 0 0 8px; text-indent: 0; vertical-align: 1px; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <nav class="menu" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#news">News</a>
+      <a href="#publications">Publications</a>
+      <a href="#teaching">Teaching</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page" id="top">
+  <aside class="id">
+    <h1>Le Fang <span class="cn">方乐</span></h1>
+    <p class="role"><strong>PhD candidate in Human-Computer Interaction</strong><br>School of Computing and Information Systems, The University of Melbourne<br>Visiting Researcher, The University of Tokyo (Jun – Jul 2026)</p>
+    <div class="contact">
+      <div class="email"><code id="addr">le.fang2@unimelb.edu.au</code><button class="copy" id="copyBtn" type="button">Copy</button></div>
+      <div class="links">
+        <a class="primary" href="Le_Fang_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+        <a href="https://scholar.google.com/citations?user=3QAtfcYAAAAJ&amp;hl=en">Google Scholar</a>
+        <a href="https://www.linkedin.com/in/le-fang/">LinkedIn</a>
+        <a href="https://orcid.org/0009-0004-2591-7584">ORCID</a>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <section id="about" aria-labelledby="about-h">
+      <h2 id="about-h">About</h2>
+      <div class="prose">
+        <p class="lede">I build <strong>LLM-based systems</strong> that read the traces people leave on their smartphones, such as screen text and other sensor data, to understand how they behave and feel, and to offer personalized support.</p>
+        <p>My research sits at the intersection of <strong>human-computer interaction, ubiquitous computing and psychology</strong>, and asks how large language models can <strong>make humans more human</strong>: helping them understand themselves, care for their wellbeing and connect with one another.</p>
+        <p>My PhD at the University of Melbourne is advised by Prof. Vassilis Kostakos, Prof. Jorge Goncalves and Dr. Hong Jia. Before that, I received an M.S. in Computer Science from Northwestern University and a B.S. in Information Sciences and Technology from Pennsylvania State University, where I was a Schreyer Honors Scholar. From June to July 2026 I was a visiting researcher in Prof. Koji Yatani's Interactive Intelligent Systems Lab at the University of Tokyo. I am a member of <a href="https://aspire-mwi.org/">ASPIRE-MWI</a>, an international research community on data-driven mental well-being.</p>
+        <p>Outside research, I write stories for tabletop role-playing games and host the sessions as game master. I have also trained in Muay Thai for three years and fought several times in the ring.</p>
+      </div>
+    </section>
+
+    <section id="news" aria-labelledby="news-h">
+      <h2 id="news-h">News</h2>
+      <ul class="news">
+        <li><span class="when">2026/08</span><span>Our paper showing that LLMs rate human happiness higher than humans do was accepted at <i>npj Digital Public Health</i> (in press).</span></li>
+        <li><span class="when">2026/06</span><span>Began a two-month visiting research stay at the University of Tokyo, hosted by Prof. Koji Yatani.</span></li>
+      </ul>
+    </section>
+
+    <section id="publications" aria-labelledby="pubs-h">
+      <h2 id="pubs-h">Publications</h2>
+
+      <ol class="refs">
+        <li class="ref"><b>Fang, L.</b>, Zhang, T., Brockmeier, L. C., Zhang, S., Fei, R., Ma, Y., Teng, S., D'Alfonso, S., Koval, P., Jia, H., Goncalves, J., &amp; Kostakos, V. (in press). Large language models rate human happiness higher than humans do. <i>npj Digital Public Health</i>.</li>
+        <li class="ref">Ma, Y., Govers, J., <b>Fang, L.</b>, Zhang, S., Hu, Y. O., Yi, X., &amp; Goncalves, J. (2026). “Black Mirror?”: Public sensemaking of AI-powered lifelogging wearables [Poster]. In <i>Companion of the 2026 ACM International Joint Conference on Pervasive and Ubiquitous Computing and the 2026 ACM International Symposium on Wearable Computers (UbiComp/ISWC '26)</i>. ACM.<span class="tags"><a href="https://arxiv.org/abs/2609.34950">arXiv</a></span></li>
+        <li class="ref"><b>Fang, L.</b>, Zhang, S., Jia, H., Goncalves, J., &amp; Kostakos, V. (2024). ScreenTK: Seamless detection of time-killing moments using continuous mobile screen text and on-device LLMs. In <i>Companion of the 2024 ACM International Joint Conference on Pervasive and Ubiquitous Computing (UbiComp '24)</i>. ACM. <a href="https://doi.org/10.1145/3675094.3677547">https://doi.org/10.1145/3675094.3677547</a><span class="tags"><a href="https://arxiv.org/abs/2407.03063">arXiv</a></span></li>
+        <li class="ref">Zhang, T., Zhang, S., <b>Fang, L.</b>, Jia, H., Kostakos, V., &amp; D'Alfonso, S. (2024). AutoJournaling: A context-aware journaling system leveraging MLLMs on smartphone screenshots. In <i>Proceedings of the 30th Annual International Conference on Mobile Computing and Networking (MobiCom '24)</i>, EIFCom Workshop (pp. 2347–2352). ACM. <a href="https://doi.org/10.1145/3636534.3698122">https://doi.org/10.1145/3636534.3698122</a><span class="tags"><span class="tag award">Best Presentation Award</span></span></li>
+        <li class="ref">Zhang, S., Ma, Y., <b>Fang, L.</b>, Jia, H., D'Alfonso, S., &amp; Kostakos, V. (2024). Enabling on-device LLMs personalization with smartphone sensing. In <i>Companion of the 2024 ACM International Joint Conference on Pervasive and Ubiquitous Computing (UbiComp '24)</i>. ACM. <a href="https://doi.org/10.1145/3675094.3677545">https://doi.org/10.1145/3675094.3677545</a><span class="tags"><a href="https://arxiv.org/abs/2407.04418">arXiv</a></span></li>
+        <li class="ref">Calvillo, J., <b>Fang, L.</b>, Cole, J., &amp; Reitter, D. (2020). Surprisal predicts code-switching in Chinese-English bilingual text. In <i>Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)</i>. Association for Computational Linguistics. <a href="https://doi.org/10.18653/v1/2020.emnlp-main.330">https://doi.org/10.18653/v1/2020.emnlp-main.330</a></li>
+      </ol>
+    </section>
+
+    <section id="teaching" aria-labelledby="teach-h">
+      <h2 id="teach-h">Teaching and service</h2>
+      <div class="rows">
+        <div class="row"><span class="what">Head Tutor, Mobile Computing</span><span class="dates">2026</span><span class="where">The University of Melbourne</span></div>
+        <div class="row"><span class="what">Tutor</span><span class="dates">2024 – present</span><span class="where">Mobile Computing, Media Computation, UI Development; Statistical Learning (Melbourne Business School)</span></div>
+        <div class="row"><span class="what">Social Chair, <a href="https://eifcom26.pages.dev/#organization">EIFCOM 2026</a></span><span class="dates">2026</span><span class="where">International Workshop on Mobile Systems with Efficient Foundation Models</span></div>
+        <div class="row"><span class="what">Reviewer</span><span class="dates"></span><span class="where"><i>PLOS Digital Health</i>; <i>Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies</i> (IMWUT)</span></div>
+      </div>
+    </section>
+
+    <footer>Last updated September 2026</footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('copyBtn');
+  var addr = document.getElementById('addr');
+  btn.addEventListener('click', function () {
+    var text = addr.textContent;
+    var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1600); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(addr);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Selected';
+      setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else { fallback(); }
+    } catch (e) { fallback(); }
+  });
+})();
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.menu a[href^="#"]'));
+  var sections = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  var bar = document.querySelector('.topbar');
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var offset = (bar ? bar.getBoundingClientRect().bottom : 0) + 24;
+    var active = 0;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i] && sections[i].getBoundingClientRect().top <= offset) active = i;
+    }
+    var doc = document.documentElement;
+    if (window.innerHeight + window.scrollY >= doc.scrollHeight - 2) active = sections.length - 1;
+    links.forEach(function (a, i) {
+      if (i === active) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    });
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+</script>
+</body>
+</html>
