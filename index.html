@@ -208,7 +208,7 @@ section { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 72px); }
     <h1>Le Fang <span class="cn">方乐</span></h1>
     <p class="role"><strong>PhD candidate in Human-Computer Interaction</strong><br>School of Computing and Information Systems, The University of Melbourne<br>Visiting Researcher, The University of Tokyo (Jun – Jul 2026)</p>
     <div class="contact">
-      <div class="email"><code id="addr">le.fang2@unimelb.edu.au</code><button class="copy" id="copyBtn" type="button">Copy</button></div>
+      <div class="email"><code id="addr" data-u="2gnaf.el" data-d="ua.ude.bleminu">le.fang2 [at] unimelb [dot] edu [dot] au</code><button class="copy" id="copyBtn" type="button">Copy</button></div>
       <div class="links">
         <a class="primary" href="Le_Fang_CV_for_website.pdf" target="_blank" rel="noopener">CV (PDF)</a>
         <a href="https://scholar.google.com/citations?user=3QAtfcYAAAAJ&amp;hl=en">Google Scholar</a>
@@ -267,6 +267,14 @@ section { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 72px); }
 
 <script>
 (function () {
+  (function () {
+    // Assemble the address in the browser so it never appears in the page source
+    var el = document.getElementById('addr');
+    if (el && el.dataset.u) {
+      var rev = function (t) { return t.split('').reverse().join(''); };
+      el.textContent = rev(el.dataset.u) + '@' + rev(el.dataset.d);
+    }
+  })();
   var btn = document.getElementById('copyBtn');
   var addr = document.getElementById('addr');
   btn.addEventListener('click', function () {
